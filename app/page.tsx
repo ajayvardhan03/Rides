@@ -121,20 +121,6 @@ export default function Home() {
 
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
 
-        {/* Success banner */}
-        {newRide && (
-          <div className="bg-green-950 border border-green-700 rounded-2xl p-4 text-sm">
-            <p className="text-green-400 font-medium mb-1">Ride posted successfully!</p>
-            <p className="text-zinc-300">
-              Your delete code is:{" "}
-              <span className="font-mono font-bold text-white bg-zinc-800 px-2 py-0.5 rounded">
-                {newRide.delete_code}
-              </span>
-            </p>
-            <p className="text-zinc-500 text-xs mt-1">Save this — you'll need it to remove your post.</p>
-            <button onClick={() => setNewRide(null)} className="text-zinc-600 text-xs mt-2 hover:text-zinc-400">dismiss</button>
-          </div>
-        )}
 
         {/* Post form */}
         {showForm && (
@@ -295,6 +281,35 @@ export default function Home() {
           </div>
         )}
       </div>
+
+      {/* Screenshot this modal */}
+      {newRide && (
+        <div className="fixed inset-0 bg-black/90 flex items-center justify-center p-4 z-50">
+          <div className="bg-zinc-900 border-2 border-yellow-400 rounded-3xl p-8 w-full max-w-sm text-center space-y-5">
+            <div className="text-4xl">📸</div>
+            <h2 className="text-yellow-400 text-2xl font-black tracking-tight uppercase">Screenshot This!</h2>
+            <p className="text-zinc-400 text-sm">This is your delete code. You'll need it to remove your ride post. We can't recover it!</p>
+            <div className="bg-black border-2 border-yellow-400 rounded-2xl py-6 px-4">
+              <p className="text-zinc-500 text-xs mb-2 uppercase tracking-widest">Your Delete Code</p>
+              <p className="text-yellow-400 text-5xl font-black font-mono tracking-widest">{newRide.delete_code}</p>
+            </div>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(newRide.delete_code);
+              }}
+              className="w-full bg-zinc-800 text-zinc-300 py-3 rounded-xl text-sm hover:bg-zinc-700 transition-colors"
+            >
+              Copy Code
+            </button>
+            <button
+              onClick={() => setNewRide(null)}
+              className="w-full bg-yellow-400 text-black font-bold py-3 rounded-xl text-sm hover:bg-yellow-300 transition-colors"
+            >
+              I've screenshot it, let me in!
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Delete modal */}
       {deleteModal && (
