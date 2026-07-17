@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
 
+// There's no login, so delete_code (shown once at post time) is the only
+// thing standing between a ride row and anyone with its id — treat it as
+// the auth check for this route, not just a nicety.
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const { delete_code } = await req.json();
