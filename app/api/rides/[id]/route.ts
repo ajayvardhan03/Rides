@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
 
+// Deleting a ride requires the delete_code issued when it was created (see
+// app/api/rides/route.ts) instead of a login — this app has no accounts.
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const { delete_code } = await req.json();

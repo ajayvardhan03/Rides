@@ -23,6 +23,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "All fields are required" }, { status: 400 });
   }
 
+  // Rides has no accounts, so this code is the only proof of ownership a poster
+  // has. It's returned once in the response below and never shown again — the
+  // client is expected to save it (see the "Screenshot This!" modal in the UI).
   const delete_code = randomBytes(4).toString("hex").toUpperCase();
 
   const { data, error } = await supabaseAdmin
